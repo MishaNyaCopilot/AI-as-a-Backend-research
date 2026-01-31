@@ -60,11 +60,11 @@ def get_session() -> Session:
 @router.register_tool(
     name="create_task",
     description=(
-        "Create a new task or add an item to the todo list. "
-        "ALWAYS use this function when the user says: 'add', 'create', 'new task', 'remind me', 'need to', 'buy', 'get'. "
-        "Examples: 'add milk', 'buy groceries', 'remind me to call mom'. "
-        "The title parameter should contain what the user wants to add. "
-        "IMPORTANT: Do NOT set due_date unless user explicitly says 'today', 'tomorrow', or a specific date. Leave it empty otherwise."
+        "RECORD a new task, reminder, or item in the todo list. "
+        "Use this ONLY when the user wants to add something new. "
+        "Keywords: 'add', 'create', 'remind me', 'new task', 'need to', 'buy', 'get'. "
+        "The 'title' should be the task itself. "
+        "IMPORTANT: Do NOT set 'due_date' unless explicitly mentioned (e.g., 'today', 'tomorrow')."
     ),
 )
 def _create_task(title: str, due_date: str | None = None, priority: str = "normal") -> dict:
@@ -75,11 +75,9 @@ def _create_task(title: str, due_date: str | None = None, priority: str = "norma
 @router.register_tool(
     name="list_tasks",
     description=(
-        "List and show tasks from the todo list. "
-        "Use when user says: 'show', 'list', 'what do I need', 'my tasks', 'what's on my list'. "
-        "For 'urgent' or 'important' tasks, use priority='high'. "
-        "For 'done' or 'completed' tasks, use status='completed'. "
-        "For 'pending' or 'todo' tasks, use status='pending'."
+        "QUERY or SHOW existing tasks from the todo list. "
+        "Use this for: 'list', 'show', 'what do I have', 'view', 'my tasks'. "
+        "Filter by 'priority' (low, normal, high) or 'status' (pending, completed) if specified."
     ),
 )
 def _list_tasks(status: str | None = None, priority: str | None = None) -> dict:
@@ -90,9 +88,9 @@ def _list_tasks(status: str | None = None, priority: str | None = None) -> dict:
 @router.register_tool(
     name="complete_task",
     description=(
-        "Mark a task as done or completed. "
-        "Use when user says: 'finished', 'done', 'completed', 'did'. "
-        "Example: 'I finished shopping', 'mark milk as done'."
+        "MARK an existing task as finished or done. "
+        "Use this for: 'done', 'finished', 'completed', 'did', 'checked off'. "
+        "Example: 'I finished the report', 'mark task 5 as done'."
     ),
 )
 def _complete_task(task_id: int | None = None, title: str | None = None) -> dict:
@@ -103,9 +101,9 @@ def _complete_task(task_id: int | None = None, title: str | None = None) -> dict
 @router.register_tool(
     name="delete_task",
     description=(
-        "Delete or remove tasks from the list. "
-        "Use when user says: 'delete', 'remove', 'clear'. "
-        "To delete completed tasks, use status='completed'."
+        "REMOVE or DELETE tasks from the list permanently. "
+        "Use this for: 'delete', 'remove', 'clear', 'erase'. "
+        "Use 'status'='completed' to clear all finished tasks."
     ),
 )
 def _delete_task(
