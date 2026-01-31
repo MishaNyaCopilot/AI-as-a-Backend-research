@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Todo List</title>
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #252542;
+            --accent-primary: #7c3aed;
+            --accent-secondary: #a855f7;
+            --accent-glow: rgba(124, 58, 237, 0.3);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Main container */
+        main {
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Chat input area */
+        .input-section {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 1rem;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            background: var(--bg-tertiary);
+            border: 2px solid transparent;
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        #messageInput:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        #messageInput::placeholder {
+            color: var(--text-secondary);
+        }
+
+        #sendBtn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #sendBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        #sendBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Examples */
+        .examples {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .example-chip {
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .example-chip:hover {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-secondary);
+        }
+
+        /* Response area */
+        .response-section {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            min-height: 100px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .response-section h3 {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        #responseContent {
+            color: var(--text-primary);
+        }
+
+        .response-success {
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--success);
+            border-radius: 4px;
+        }
+
+        .response-error {
+            padding: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid var(--error);
+            border-radius: 4px;
+        }
+
+        .function-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tasks list */
+        .tasks-section {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .tasks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tasks-header h3 {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        #refreshBtn {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #refreshBtn:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .task-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+        }
+
+        .task-item.completed .task-title {
+            text-decoration: line-through;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .task-checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .task-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .task-meta {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+        }
+
+        .priority-normal {
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-secondary);
+        }
+
+        .priority-low {
+            background: rgba(148, 163, 184, 0.2);
+            color: var(--text-secondary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-glow);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>🧠 AI Todo List</h1>
+        <p>Powered by FunctionGemma - Just type what you want to do!</p>
+    </header>
+
+    <main>
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    placeholder="Try: 'Add buy groceries' or 'What do I need to do?'"
+                    autocomplete="off"
+                >
+                <button id="sendBtn">Send</button>
+            </div>
+            <div class="examples">
+                <span class="example-chip" data-msg="Add buy milk to my list">Add buy milk</span>
+                <span class="example-chip" data-msg="Show my tasks">Show tasks</span>
+                <span class="example-chip" data-msg="I finished the shopping">Mark done</span>
+                <span class="example-chip" data-msg="Show urgent tasks">Urgent tasks</span>
+                <span class="example-chip" data-msg="Delete completed tasks">Clear done</span>
+            </div>
+        </div>
+
+        <!-- Response Section -->
+        <div class="response-section">
+            <h3>AI Response</h3>
+            <div id="responseContent">
+                <p style="color: var(--text-secondary)">Type a message above to get started...</p>
+            </div>
+        </div>
+
+        <!-- Tasks Section -->
+        <div class="tasks-section">
+            <div class="tasks-header">
+                <h3>Your Tasks</h3>
+                <button id="refreshBtn">↻ Refresh</button>
+            </div>
+            <ul class="task-list" id="taskList">
+                <li class="empty-state">No tasks yet. Add some using natural language!</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>AI-as-a-Backend Research | <a href="/docs">API Docs</a></p>
+    </footer>
+
+    <script>
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const responseContent = document.getElementById('responseContent');
+        const taskList = document.getElementById('taskList');
+        const refreshBtn = document.getElementById('refreshBtn');
+
+        // Send message
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            sendBtn.disabled = true;
+            responseContent.innerHTML = '<div class="loading"><div class="spinner"></div>Processing...</div>';
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                displayResponse(data);
+                loadTasks(); // Refresh task list
+            } catch (error) {
+                displayResponse({
+                    success: false,
+                    error: 'Failed to connect to the server. Make sure LM Studio is running!'
+                });
+            }
+
+            sendBtn.disabled = false;
+            messageInput.value = '';
+            messageInput.focus();
+        }
+
+        // Display response
+        function displayResponse(data) {
+            if (data.success) {
+                let html = `<div class="response-success">`;
+                html += `<span class="function-badge">${data.function_called}</span>`;
+                
+                if (data.result?.message) {
+                    html += `<p style="margin-top: 0.5rem">${data.result.message}</p>`;
+                }
+                
+                if (data.result?.tasks) {
+                    html += `<p style="margin-top: 0.5rem">Found ${data.result.count} task(s)</p>`;
+                }
+                
+                if (data.arguments && Object.keys(data.arguments).length > 0) {
+                    html += `<p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary)">`;
+                    html += `Arguments: ${JSON.stringify(data.arguments)}`;
+                    html += `</p>`;
+                }
+                
+                html += `</div>`;
+                responseContent.innerHTML = html;
+            } else {
+                responseContent.innerHTML = `
+                    <div class="response-error">
+                        <p>${data.error}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Load tasks
+        async function loadTasks() {
+            try {
+                const response = await fetch('/api/tasks');
+                const data = await response.json();
+                displayTasks(data.tasks || []);
+            } catch (error) {
+                taskList.innerHTML = '<li class="empty-state">Failed to load tasks</li>';
+            }
+        }
+
+        // Display tasks
+        function displayTasks(tasks) {
+            if (tasks.length === 0) {
+                taskList.innerHTML = '<li class="empty-state">No tasks yet. Add some using natural language!</li>';
+                return;
+            }
+
+            taskList.innerHTML = tasks.map(task => `
+                <li class="task-item ${task.status === 'completed' ? 'completed' : ''}">
+                    <div class="task-checkbox ${task.status === 'completed' ? 'checked' : ''}" 
+                         onclick="toggleTask(${task.id}, '${task.title}')"></div>
+                    <div class="task-content">
+                        <div class="task-title">
+                            ${task.title}
+                            <span class="priority-badge priority-${task.priority}">${task.priority}</span>
+                        </div>
+                        <div class="task-meta">
+                            ID: ${task.id}
+                            ${task.due_date ? ` | Due: ${new Date(task.due_date).toLocaleDateString()}` : ''}
+                        </div>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        // Toggle task completion
+        async function toggleTask(id, title) {
+            messageInput.value = `I finished ${title}`;
+            await sendMessage();
+        }
+
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        refreshBtn.addEventListener('click', loadTasks);
+
+        // Example chips
+        document.querySelectorAll('.example-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                messageInput.value = chip.dataset.msg;
+                sendMessage();
+            });
+        });
+
+        // Initial load
+        loadTasks();
+    </script>
+</body>
+</html>

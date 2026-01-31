@@ -1,0 +1,332 @@
+[
+    {
+        "user_content": "add buy milk",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"buy milk\"}"
+    },
+    {
+        "user_content": "add groceries",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"groceries\"}"
+    },
+    {
+        "user_content": "add buy eggs",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"buy eggs\"}"
+    },
+    {
+        "user_content": "buy eggs",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"buy eggs\"}"
+    },
+    {
+        "user_content": "buy bread",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"buy bread\"}"
+    },
+    {
+        "user_content": "get coffee",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"get coffee\"}"
+    },
+    {
+        "user_content": "remind me to call mom",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"call mom\"}"
+    },
+    {
+        "user_content": "remind me to exercise",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"exercise\"}"
+    },
+    {
+        "user_content": "need to do laundry",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"do laundry\"}"
+    },
+    {
+        "user_content": "I need to clean the house",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"clean the house\"}"
+    },
+    {
+        "user_content": "add test task",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"test task\"}"
+    },
+    {
+        "user_content": "create a task for homework",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"homework\"}"
+    },
+    {
+        "user_content": "new task: meeting at 3pm",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"meeting at 3pm\"}"
+    },
+    {
+        "user_content": "add call mom tomorrow",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"call mom\", \"due_date\": \"tomorrow\"}"
+    },
+    {
+        "user_content": "add urgent meeting with boss",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"meeting with boss\", \"priority\": \"high\"}"
+    },
+    {
+        "user_content": "add high priority: fix the bug",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"fix the bug\", \"priority\": \"high\"}"
+    },
+    {
+        "user_content": "add pay bills by friday",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"pay bills\", \"due_date\": \"friday\"}"
+    },
+    {
+        "user_content": "remember to water plants",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"water plants\"}"
+    },
+    {
+        "user_content": "don't forget to reply to email",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"reply to email\"}"
+    },
+    {
+        "user_content": "todo: review code",
+        "tool_name": "create_task",
+        "tool_arguments": "{\"title\": \"review code\"}"
+    },
+    {
+        "user_content": "show my tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{}"
+    },
+    {
+        "user_content": "list tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{}"
+    },
+    {
+        "user_content": "what do I need to do",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{}"
+    },
+    {
+        "user_content": "what's on my list",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{}"
+    },
+    {
+        "user_content": "show all tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{}"
+    },
+    {
+        "user_content": "what are my todos",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{}"
+    },
+    {
+        "user_content": "display tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{}"
+    },
+    {
+        "user_content": "show pending tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"status\": \"pending\"}"
+    },
+    {
+        "user_content": "list completed tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"status\": \"completed\"}"
+    },
+    {
+        "user_content": "show done tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"status\": \"completed\"}"
+    },
+    {
+        "user_content": "show urgent tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"priority\": \"high\"}"
+    },
+    {
+        "user_content": "list high priority tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"priority\": \"high\"}"
+    },
+    {
+        "user_content": "show important tasks",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"priority\": \"high\"}"
+    },
+    {
+        "user_content": "what urgent stuff do I have",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"priority\": \"high\"}"
+    },
+    {
+        "user_content": "show low priority items",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"priority\": \"low\"}"
+    },
+    {
+        "user_content": "what have I finished",
+        "tool_name": "list_tasks",
+        "tool_arguments": "{\"status\": \"completed\"}"
+    },
+    {
+        "user_content": "I finished buying milk",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"milk\"}"
+    },
+    {
+        "user_content": "I finished the shopping",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"shopping\"}"
+    },
+    {
+        "user_content": "mark milk as done",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"milk\"}"
+    },
+    {
+        "user_content": "done with groceries",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"groceries\"}"
+    },
+    {
+        "user_content": "completed the homework",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"homework\"}"
+    },
+    {
+        "user_content": "I did the laundry",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"laundry\"}"
+    },
+    {
+        "user_content": "complete task 1",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"task_id\": 1}"
+    },
+    {
+        "user_content": "complete task 2",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"task_id\": 2}"
+    },
+    {
+        "user_content": "complete task 3",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"task_id\": 3}"
+    },
+    {
+        "user_content": "mark task 5 as done",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"task_id\": 5}"
+    },
+    {
+        "user_content": "finish the first task",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"task_id\": 1}"
+    },
+    {
+        "user_content": "I'm done with exercise",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"exercise\"}"
+    },
+    {
+        "user_content": "checked off the meeting",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"meeting\"}"
+    },
+    {
+        "user_content": "just finished calling mom",
+        "tool_name": "complete_task",
+        "tool_arguments": "{\"title\": \"call mom\"}"
+    },
+    {
+        "user_content": "delete completed tasks",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"status\": \"completed\"}"
+    },
+    {
+        "user_content": "remove done tasks",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"status\": \"completed\"}"
+    },
+    {
+        "user_content": "clear completed",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"status\": \"completed\"}"
+    },
+    {
+        "user_content": "delete task 1",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"task_id\": 1}"
+    },
+    {
+        "user_content": "remove task 3",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"task_id\": 3}"
+    },
+    {
+        "user_content": "delete the milk task",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"title\": \"milk\"}"
+    },
+    {
+        "user_content": "remove shopping from list",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"title\": \"shopping\"}"
+    },
+    {
+        "user_content": "erase task 2",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"task_id\": 2}"
+    },
+    {
+        "user_content": "clear all finished tasks",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"status\": \"completed\"}"
+    },
+    {
+        "user_content": "get rid of task 4",
+        "tool_name": "delete_task",
+        "tool_arguments": "{\"task_id\": 4}"
+    },
+    {
+        "user_content": "update task 1 to high priority",
+        "tool_name": "update_task",
+        "tool_arguments": "{\"task_id\": 1, \"priority\": \"high\"}"
+    },
+    {
+        "user_content": "change task 2 priority to low",
+        "tool_name": "update_task",
+        "tool_arguments": "{\"task_id\": 2, \"priority\": \"low\"}"
+    },
+    {
+        "user_content": "rename task 1 to buy groceries",
+        "tool_name": "update_task",
+        "tool_arguments": "{\"task_id\": 1, \"title\": \"buy groceries\"}"
+    },
+    {
+        "user_content": "set task 3 due date to tomorrow",
+        "tool_name": "update_task",
+        "tool_arguments": "{\"task_id\": 3, \"due_date\": \"tomorrow\"}"
+    },
+    {
+        "user_content": "make task 5 urgent",
+        "tool_name": "update_task",
+        "tool_arguments": "{\"task_id\": 5, \"priority\": \"high\"}"
+    },
+    {
+        "user_content": "edit task 2 title to call dad",
+        "tool_name": "update_task",
+        "tool_arguments": "{\"task_id\": 2, \"title\": \"call dad\"}"
+    }
+]
