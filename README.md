@@ -61,6 +61,3 @@ AI-as-a-Backend/
 ├── docs/             # Technical research & results
 └── .env              # Hardware configuration
 ```
-
-## License
-MIT
